@@ -1,0 +1,99 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="foodOrderingSystem">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+	<title>Food Ordering System</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		html 					{ overflow-y:scroll; }
+		body 					{ padding-top:50px; }
+		#food-list 				{ margin-bottom:30px; }
+		#food-form 	 			{ margin-bottom:50px; }
+	</style>
+</head>
+<!-- SET THE CONTROLLER -->
+<body ng-controller="mainController">
+	<div class="container">
+
+		<!-- HEADER AND Food COUNT -->
+		<div class="jumbotron text-center">
+			<h1>Your total orders <span class="label label-info"></span>{{foods.length}}</h1>
+			<h1>Your total cost <span class="label label-info"></span>{{total}}</h1>
+		</div>
+
+		<!-- Food LIST -->
+		<div id="food-list" class="row">
+			<div class="col-sm-4 col-sm-offset-4">
+
+				<!-- LOOP OVER THE Foods IN $scope.Foods -->
+				<h3 ng-show="cart">Your Cart</h3>
+				<div class="checkbox" ng-repeat="foods in foods">
+					<label>
+					<div class="row">
+						<div class="col-md-6">
+						 	<h4>{{foods.food_item}}</h4>
+						 </div>
+						 <div class="col-sm-2 col-sm-offset-1">
+						 	<a href="#" class="btn btn-info btn-sm" ng-click="deleteFood(foods._id)">
+          						<span class="glyphicon glyphicon-trash" ></span> Delete
+        					</a>
+        				</div>	
+					</div> 
+					</label>
+				</div>
+				<p class="text-center" ng-show="loading">
+					<span class="fa fa-spinner fa-spin fa-3x"></span>
+				</p>
+
+			</div>
+		</div>
+
+		<!-- FORM TO CREATE Food Items -->
+		<div id="food-form" class="row">
+			<div class="col-sm-8 col-sm-offset-2 ">
+				<form>
+					<div class="form-group">
+						<table class="table table-hover">
+    						<thead>
+						      <tr>
+						        <th>Food Item</th>
+						        <th>Price</th>
+						        <th>Order</th>
+						      </tr>
+						    </thead>
+						   <tbody ng-repeat="foods in foodItems">
+						      <tr>
+						        <td>{{foods.name}}</td>
+						        <td>{{foods.price}}$</td>
+						        <td>
+									 <label><button type="submit" class="btn btn-primary btn-lg" ng-click="createFood(foodItems[$index].name,foodItems[$index].price)">Add</button>
+									
+								</td>
+						      </tr>
+						    </tbody>
+  						</table>
+
+					</div>
+					<!-- createToDo() WILL CREATE NEW TODOS -->
+		
+				</form>
+			</div>
+		</div>
+
+	</div>
+		<!-- SPELLS -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+
+	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
+	<script src="js/services/todos.js"></script> <!-- load our todo service -->
+	<script src="js/core.js"></script> <!-- load our main application -->
+</body>
+</html>
